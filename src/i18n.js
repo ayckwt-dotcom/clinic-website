@@ -14,7 +14,7 @@ export const dict = Object.freeze({
       working: {
         line1: "Sun–Mon | Wed–Thu 16:00 – 21:00",
         line2: "Tue & Fri: Closed",
-        line3: "Sat 13:00 – 16:00"
+        line3: "Sat 11:00 – 16:00"
       }},
       about: {
         kicker: "ABOUT US",
@@ -100,7 +100,7 @@ export const dict = Object.freeze({
       lead: "We reply during working hours.",
       hours1: "Sun–Mon | Wed–Thu: 16:00–21:00",
       hours2: "Tue & Fri: Closed",
-      hours3: "Sat: 13:00–16:00",
+      hours3: "Sat: 11:00–16:00",
       call: "Call +965 91110420"
     },
     form: {
@@ -160,7 +160,7 @@ export const dict = Object.freeze({
       working: {
         line1: "الأحد–الاثنين | الأربعاء–الخميس ٤ – ٩ مساءً",
         line2: "الثلاثاء والجمعة: مغلق",
-        line3: "السبت ١ – ٤ مساءً"
+        line3: "السبت ١١ – ٤ مساءً"
       }},
     about: {
       kicker: "من نحن",
@@ -249,7 +249,7 @@ export const dict = Object.freeze({
       lead: "نرد خلال ساعات العمل.",
       hours1: "الأحد–الاثنين | الأربعاء–الخميس: ٤ – ٩ مساءً",
       hours2: "الثلاثاء والجمعة: مغلق",
-      hours3: "السبت: ١ – ٤ مساءً",
+      hours3: "السبت: ١١ – ٤ مساءً",
       call: "اتصل ‎+965 91110420"
     },
     form: {
