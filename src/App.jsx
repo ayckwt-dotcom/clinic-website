@@ -1,4 +1,3 @@
-import BookingPage from "./BookingPage";
 import BookingPage2 from "./BookingPage2";
 import { useState, useEffect } from "react";
 import LangToggle from "./LangToggle";
