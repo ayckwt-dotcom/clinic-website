@@ -61,6 +61,46 @@ export default function App() {
     }
   };
 
+// add state for the loading spinner/disable
+const [sending, setSending] = useState(false);
+
+// submit handler for the Contact form
+async function onContactSubmit(e) {
+  e.preventDefault();
+  if (sending) return;
+
+  const form = e.currentTarget;
+  const fd = new FormData(form);
+
+  const payload = {
+    name: fd.get("name")?.toString().trim(),
+    phone: fd.get("phone")?.toString().trim(),
+    email: fd.get("email")?.toString().trim(),
+    message: fd.get("message")?.toString().trim(),
+    company: fd.get("company")?.toString() || "" // honeypot
+  };
+
+  try {
+    setSending(true);
+    const r = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const out = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(out.msg || "Failed to send");
+
+    alert("✅ Message sent! We’ll get back to you soon.");
+    form.reset();
+  } catch (err) {
+    alert(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setSending(false);
+  }
+}
+
+
+
   return (
     <>
       {/* Top blue strip: email, phone, socials */}
@@ -541,7 +581,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <form className="visit__form visit__form--blue" onSubmit={(e)=>e.preventDefault()}>
+                  <form className="visit__form visit__form--blue" onSubmit={onContactSubmit}>
                     <div className="form-row">
                       <label htmlFor="vc-name">{t("form.fullName")}</label>
                       <input id="vc-name" name="name" required />
@@ -559,7 +599,15 @@ export default function App() {
                       <textarea id="vc-msg" name="message" rows="5" required />
                     </div>
                     <input type="text" name="company" className="hp" tabIndex="-1" autoComplete="off" />
-                    <button type="submit" className="btn--primary">{t("form.send")}</button>
+                    <button
+                      type="submit"
+                      className="btn--primary"
+                      disabled={sending}
+                      aria-busy={sending}
+                    >
+                      {sending ? (t("form.sending") || "Sending…") : t("form.send")}
+                    </button>
+
                     <p className="visit__disclaimer">{t("form.disclaimer")}</p>
                   </form>
                 </div>
