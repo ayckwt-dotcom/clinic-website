@@ -132,7 +132,7 @@ async function onContactSubmit(e) {
                 </defs>
 
                 {/* rounded-square background */}
-                <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#waGHeader)"/>
+                <rect x="12" y="2" width="60" height="60" rx="14" fill="url(#waGHeader)"/>
 
                 {/* official glyph, centered */}
                 <g transform="translate(12,12) scale(1.7)">
