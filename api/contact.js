@@ -1,27 +1,73 @@
-// api/contact.js (ESM because your package.json has "type":"module")
+// api/contact.js
 import nodemailer from "nodemailer";
 
-const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, FROM_EMAIL, TO_EMAIL } = process.env;
+const {
+  SMTP_HOST,
+  SMTP_PORT,
+  SMTP_USER,
+  SMTP_PASS,
+  FROM_EMAIL,
+  TO_EMAIL,
+} = process.env;
 
-// Fallback JSON parser (Vercel Node functions don't always parse req.body)
-async function readJson(req) {
-  if (req.body) return req.body;
+// util: does req.body actually have keys?
+const hasKeys = (v) =>
+  v && typeof v === "object" && !Array.isArray(v) && Object.keys(v).length > 0;
+
+// Read body as JSON or URL-encoded, regardless of runtime
+async function readBody(req) {
+  // If Vercel/Framework already parsed AND it's non-empty, use it
+  if (hasKeys(req.body)) return req.body;
+
+  // Otherwise, read the raw stream
   const chunks = [];
-  for await (const c of req) chunks.push(c);
+  for await (const c of req) chunks.push(typeof c === "string" ? Buffer.from(c) : c);
   const raw = Buffer.concat(chunks).toString("utf8");
-  try { return JSON.parse(raw || "{}"); } catch { return {}; }
+  const ct = (req.headers["content-type"] || "").toLowerCase();
+
+  // Try JSON
+  try {
+    if (ct.includes("application/json") || raw.trim().startsWith("{")) {
+      return JSON.parse(raw || "{}");
+    }
+  } catch {
+    /* fall through */
+  }
+
+  // Fallback: x-www-form-urlencoded
+  if (ct.includes("application/x-www-form-urlencoded")) {
+    const out = {};
+    for (const [k, v] of new URLSearchParams(raw)) out[k] = v;
+    return out;
+  }
+
+  return {};
+}
+
+// basic HTML escape
+function esc(s = "") {
+  return String(s).replace(/[&<>"']/g, (ch) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch])
+  );
 }
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
   try {
-    const { name, phone, email, message, company } = await readJson(req);
+    const body = await readBody(req);
+    console.log("CONTACT payload:", body); // check Vercel → Logs if needed
+
+    const name = String(body.name || "").trim();
+    const phone = String(body.phone || "").trim();
+    const email = String(body.email || "").trim();
+    const message = String(body.message || "").trim();
+    const company = String(body.company || "").trim(); // honeypot
 
     // bot honeypot: silently succeed
     if (company) return res.status(200).json({ ok: true });
 
-    if (!name?.trim() || !phone?.trim() || !message?.trim()) {
+    if (!name || !phone || !message) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
 
@@ -33,22 +79,22 @@ export default async function handler(req, res) {
     });
 
     await transporter.sendMail({
-      from: FROM_EMAIL,             // for Gmail SMTP this should be your Gmail address
-      to: TO_EMAIL,                 // same inbox as bookings
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
       subject: "New Website Message",
-      replyTo: email || undefined,  // lets reception reply directly to the sender
+      replyTo: email || undefined,
       html: `
         <h2>New Website Message</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Phone:</b> ${phone}</p>
-        <p><b>Email:</b> ${email || "-"}</p>
-        <p><b>Message:</b><br/>${(message || "").replace(/\n/g,"<br/>")}</p>
+        <p><b>Name:</b> ${esc(name)}</p>
+        <p><b>Phone:</b> ${esc(phone)}</p>
+        <p><b>Email:</b> ${email ? esc(email) : "-"}</p>
+        <p><b>Message:</b><br/>${esc(message).replace(/\n/g, "<br/>")}</p>
       `,
     });
 
     res.status(200).json({ ok: true });
   } catch (err) {
-    console.error(err);
+    console.error("CONTACT error:", err);
     res.status(500).json({ msg: "Failed to send" });
   }
 }
