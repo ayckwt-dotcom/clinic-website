@@ -1,17 +1,6 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/book-online",  "destination": "/book",      "permanent": true },
-    { "source": "/book-online/", "destination": "/book",      "permanent": true },
-
-    { "source": "/contact-us",   "destination": "/#contact",  "permanent": true },
-    { "source": "/contact",      "destination": "/#contact",  "permanent": true },
-
-    { "source": "/about-us",     "destination": "/#about",    "permanent": true },
-    { "source": "/about",        "destination": "/#about",    "permanent": true },
-
-    { "source": "/services",     "destination": "/#services", "permanent": true },
-    { "source": "/location",     "destination": "/#location", "permanent": true }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
