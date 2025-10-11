@@ -81,7 +81,7 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from: FROM_EMAIL,
       to: TO_EMAIL,
-      subject: "New Website Message",
+      subject: "Contact Us (Inquiry)",
       replyTo: email || undefined,
       html: `
         <h2>New Website Message</h2>
