@@ -64,6 +64,13 @@ export default function App() {
 // add state for the loading spinner/disable
 const [sending, setSending] = useState(false);
 
+const normalizeDigits = (s = "") => {
+  const map = {'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9',
+               '۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
+  return s.replace(/[٠-٩۰-۹]/g, ch => map[ch]);
+};
+
+
 // submit handler for the Contact form
 async function onContactSubmit(e) {
   e.preventDefault();
@@ -72,13 +79,13 @@ async function onContactSubmit(e) {
   const form = e.currentTarget;
   const fd = new FormData(form);
 
-  const payload = {
-    name: fd.get("name")?.toString().trim(),
-    phone: fd.get("phone")?.toString().trim(),
-    email: fd.get("email")?.toString().trim(),
-    message: fd.get("message")?.toString().trim(),
-    company: fd.get("company")?.toString() || "" // honeypot
-  };
+  const name    = fd.get("name")?.toString().trim()    || "";
+  const phone   = normalizeDigits(fd.get("phone")?.toString() || "").trim();
+  const email   = fd.get("email")?.toString().trim()   || "";
+  const message = fd.get("message")?.toString().trim() || "";
+  const company = fd.get("company")?.toString()        || "";
+
+  const payload = { name, phone, email, message, company };
 
   try {
     setSending(true);
@@ -584,7 +591,14 @@ async function onContactSubmit(e) {
                   <form className="visit__form visit__form--blue" onSubmit={onContactSubmit}>
                     <div className="form-row">
                       <label htmlFor="vc-name">{t("form.fullName")}</label>
-                      <input id="vc-name" name="name" required />
+                      <input
+                        id="vc-phone"
+                        name="phone"
+                        type="tel"
+                        inputMode="tel"
+                        pattern="[\d\u0660-\u0669\u06F0-\u06F9+\s()\-]{6,}"
+                        required
+                      />
                     </div>
                     <div className="form-row">
                       <label htmlFor="vc-phone">{t("form.phone")}</label>
