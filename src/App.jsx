@@ -592,11 +592,10 @@ async function onContactSubmit(e) {
                     <div className="form-row">
                       <label htmlFor="vc-name">{t("form.fullName")}</label>
                       <input
-                        id="vc-phone"
-                        name="phone"
-                        type="tel"
-                        inputMode="tel"
-                        pattern="[\d\u0660-\u0669\u06F0-\u06F9+\s()\-]{6,}"
+                        id="vc-name"
+                        name="name"
+                        type="text"
+                        autoComplete="name"
                         required
                       />
                     </div>
