@@ -26,8 +26,8 @@
 
 /*---------------------------------------Pre-Hero Section---------------------------------------*/
 * { box-sizing: border-box; }
+
 html, body { height: 100%; }
-html { scroll-behavior: smooth; }
 
 body{
   margin: 0;
@@ -540,7 +540,7 @@ html[dir="rtl"] .hero__cta{ display:inline-flex; justify-content:flex-end; }
   /* .hero .ui-box--floating — removed (unused) */
   .info-row{ grid-template-columns:1fr  !important;}
 }
-@media (max-width:980px){
+@media (max-width:1350px){
   .info-row{ grid-template-columns:repeat(2, 1fr); }
 }
 
@@ -1452,4 +1452,59 @@ html[dir="rtl"] .service-card__title{
 [dir="rtl"] .btn--primary.loading::after {
   right: auto;
   left: 12px;
+}
+
+
+
+
+
+/* ------ Overflow hidden --------*/
+
+/* --- Prevent accidental horizontal scroll everywhere --- */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;      /* iOS/Safari friendly */
+  scroll-behavior: smooth;
+}
+
+/* Make all media shrink to fit */
+img, svg, video, canvas, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Full-bleed sections shouldn’t leak to the sides */
+.full-bleed,
+.hero {
+  overflow-x: hidden;
+}
+
+/* Hero media should never exceed the viewport width */
+.hero__heart {
+  width: 100%;
+  max-width: 100%;
+  /*height: auto;*/
+  object-fit: cover;       /* keep it nicely cropped */
+  display: block;
+}
+
+/* If you use a slide-in mobile drawer, ensure it doesn't extend page width */
+.nav__drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 82vw;             /* stays within viewport */
+  max-width: 380px;
+  transform: translateX(100%);
+}
+.nav__drawer.is-open { transform: translateX(0); }
+
+/* Defensive: maps/photos/portrait frames used in Services/Location */
+.visit__mapframe,
+.portrait-frame,
+.services__media,
+.visit__photo img {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
