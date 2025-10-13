@@ -224,11 +224,11 @@ html[dir="rtl"] .nav .menu{
 .nav__toggle.is-open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
 
 /* Drawer panel */
-.nav__drawer{
+/*.nav__drawer{
   position: fixed;
-  z-index: 1100;                 /* above your fixed bars */
+  z-index: 1100;   
   inset-inline: 0;
-  inset-block-start: calc(var(--topstrip-h) + var(--nav-h)); /* sits below your two fixed bars */
+  inset-block-start: calc(var(--topstrip-h) + var(--nav-h));
   height: calc(60vh - var(--topstrip-h) - var(--nav-h));
   background: #ffffff;
   border-top: 1px solid rgba(2,6,23,.06);
@@ -239,7 +239,39 @@ html[dir="rtl"] .nav .menu{
   padding: 16px clamp(16px, 4vw, 22px) 24px;
   display: grid; gap: 14px;
 }
-.nav__drawer.is-open{ opacity: 1; transform: none; pointer-events: auto; }
+.nav__drawer.is-open{ opacity: 1; transform: none; pointer-events: auto; } */
+
+
+
+/* Drawer panel – unified (below top bars, scrollable) */
+.nav__drawer{
+  position: fixed;
+  z-index: 1100;  /* bars are 9990 / 10000; we want to sit below them visually */
+  /* place it BELOW the sticky topstrip + nav */
+  top: calc(var(--topstrip-h) + var(--nav-h));
+  inset-inline-end: 0;               /* right in LTR, left in RTL */
+  width: min(82vw, 380px);
+  max-height: calc(100vh - var(--topstrip-h) - var(--nav-h));
+  overflow: auto;
+
+  background: #ffffff;
+  border-top: 1px solid rgba(2,6,23,.06);
+  box-shadow: 0 10px 24px rgba(2,6,23,.10);
+
+  /* slide-in off canvas */
+  transform: translateX(100%);       /* hidden (off end side) */
+  opacity: 0; pointer-events: none;
+  transition: transform .2s ease, opacity .2s ease;
+
+  /* add top padding (respect iPhone notch) */
+  padding: max(16px, env(safe-area-inset-top)) clamp(16px, 4vw, 22px) 24px;
+
+  display: grid; gap: 14px;
+}
+.nav__drawer.is-open{ transform: translateX(0); opacity: 1; pointer-events: auto; }
+
+
+
 
 /* Dim backdrop */
 .nav__backdrop{
@@ -299,9 +331,12 @@ html[dir="rtl"] .nav .menu{
 }
 
 /* ---------- RTL niceties ---------- */
-html[dir="rtl"] .nav__toggle{ margin-inline-start: 0; margin-inline-end: 8px; }
-html[dir="rtl"] .menu--mobile a{ text-align: right; }
+/*html[dir="rtl"] .nav__toggle{ margin-inline-start: 0; margin-inline-end: 8px; }
+html[dir="rtl"] .menu--mobile a{ text-align: right; }*/
 
+/* Mirror slide direction for RTL */
+html[dir="rtl"] .nav__drawer{ transform: translateX(-100%); }
+html[dir="rtl"] .nav__drawer.is-open{ transform: translateX(0); }
 
 
 
