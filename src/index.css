@@ -451,7 +451,7 @@ html[dir="rtl"] .menu--mobile a{ text-align: right; }
   background:linear-gradient(180deg,#6366f1,#7c3aed);
   box-shadow:0 10px 22px rgba(124,58,237,.28);
 }
-.info-row{
+/*.info-row{
   max-width:clamp(1100px, 100vw, 1580px);
   margin:clamp(24px, 4vw, 48px) auto;
   padding-inline:clamp(16px, 4vw, 32px);
@@ -459,7 +459,28 @@ html[dir="rtl"] .menu--mobile a{ text-align: right; }
   grid-template-columns:repeat(3, minmax(340px, 1fr));
   gap:clamp(16px, 2vw, 28px);
   align-items:stretch;
+}*/
+
+
+.info-row{
+  box-sizing: border-box;
+  width: auto;
+  max-width: clamp(1100px, 92vw, 1500px);     /* same geometry as .section__wrap */
+  margin: clamp(24px, 4vw, 48px) auto;
+  padding-left: clamp(16px, 4vw, 32px);       /* physical paddings (no padding-inline) */
+  padding-right: clamp(16px, 4vw, 32px);
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(340px, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  align-items: stretch;
 }
+.info-row > * { min-width: 0; }
+
+
+
+
+
 .info-row .ui-box{ height:100%; }
 .info-row{ margin-top:var(--cards-offset); }
 .info-row .ui-box:first-child .ui-chip{
@@ -478,11 +499,14 @@ html[dir="rtl"] .menu--mobile a{ text-align: right; }
   width: 18px;
   height: 18px;
 }
-.info-row .ui-box:first-child .ui-chip span{
+
+/*.info-row .ui-box:first-child .ui-chip span{
   grid-column: 2;
   text-align: left;
   white-space: nowrap;               
-}
+}*/
+
+.info-row .ui-box:first-child .ui-chip span{ text-align: start; white-space: nowrap; }
 
 /* RTL tweaks that are actually used */
 html[dir="rtl"] .hero__inner{ text-align:right; width:100%; max-width:720px; }
@@ -535,28 +559,6 @@ html[dir="rtl"] .hero__cta{ display:inline-flex; justify-content:flex-end; }
   /* RTL mirror */
   html[dir="rtl"] .hero__inner{ left: auto; right: 16px; text-align: right; font-size: 12px; }
 }
-
-
-/* --- FIX: RTL mobile – keep equal gutters on the 3 hero cards --- */
-html[dir="rtl"] .info-row{
-  /* use physical paddings to avoid Safari RTL bug */
-  padding-left: clamp(16px, 4vw, 32px);
-  padding-right: clamp(16px, 4vw, 32px);
-  margin-left: auto;
-  margin-right: auto;
-  width: min(100%, 1580px); /* defensive centering */
-}
-
-/* extra safety on tiny phones */
-@media (max-width: 700px){
-  html[dir="rtl"] .info-row{
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-}
-
-/* (polish) make the hours chip respect page direction */
-.info-row .ui-box:first-child .ui-chip span{ text-align: start; }
 
 
 @media (max-width:700px){
