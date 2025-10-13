@@ -478,9 +478,9 @@ html[dir="rtl"] .menu--mobile a{ text-align: right; }
 .info-row > * { min-width: 0; }
 
 
+/* WORKING HERE!!!!!!!!!!!!!!!!!!!!! */
 
-
-
+/*
 .info-row .ui-box{ height:100%; }
 .info-row{ margin-top:var(--cards-offset); }
 .info-row .ui-box:first-child .ui-chip{
@@ -499,14 +499,68 @@ html[dir="rtl"] .menu--mobile a{ text-align: right; }
   width: 18px;
   height: 18px;
 }
-
-/*.info-row .ui-box:first-child .ui-chip span{
-  grid-column: 2;
-  text-align: left;
-  white-space: nowrap;               
-}*/
-
 .info-row .ui-box:first-child .ui-chip span{ text-align: start; white-space: nowrap; }
+*/
+
+
+/* === Fix first card: chip should wrap nicely and not push layout === */
+.info-row .ui-box:first-child .ui-chip{
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  column-gap: 10px;
+  row-gap: 6px;
+  align-items: start;                 /* top-align multi-line text */
+  justify-items: start;
+  padding: 12px 24px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.info-row .ui-box:first-child .ui-chip .ui-chip__icon{
+  grid-column: 1;
+  grid-row: 1 / -1;                   /* span all text rows (not -4) */
+  align-self: start;
+}
+
+.info-row .ui-box:first-child .ui-chip span{
+  grid-column: 2;
+  text-align: start;                  /* RTL/LTR smart */
+  white-space: normal;                /* <-- allow wrapping */
+  overflow-wrap: anywhere;            /* break long tokens if needed */
+  line-height: 1.35;
+}
+
+/* === Ensure the first card header is truly centered === */
+.info-row .ui-box:first-child .ui-box__head{
+  justify-content: center;
+}
+.info-row .ui-box:first-child .ui-box__title{
+  margin-left: 0;                     /* remove the 2px nudge */
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* WORKING HERE!!!!!!!!!!!!!!!!!!!!! */
+
+
+
+
+
+
+
+
+
 
 /* RTL tweaks that are actually used */
 html[dir="rtl"] .hero__inner{ text-align:right; width:100%; max-width:720px; }
