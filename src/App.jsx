@@ -638,12 +638,18 @@ async function onContactSubmit(e) {
             <div>{t("footer.addr")}</div>
             
             <div class="footer__contact">
-              <a class="footer__tel" href="tel:+96591110420">
-                <bdi>{t("footer.phone")}</bdi>
+              <a
+                className="footer__tel"
+                href="https://wa.me/96591110420"
+                target="_blank"
+                rel="noopener"
+                aria-label="WhatsApp"
+              >
+                <bdi dir="ltr">{t("footer.phone")}</bdi>
               </a>
               <a
-                class="footer__wa badge"
-                href="https://wa.me/96591110420?"
+                className="footer__wa badge"
+                href="https://wa.me/96591110420"
                 target="_blank"
                 rel="noopener"
                 aria-label="WhatsApp"
