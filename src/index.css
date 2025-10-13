@@ -1569,14 +1569,14 @@ img, svg, video, canvas, iframe, embed, object {
 }
 
 /* If you use a slide-in mobile drawer, ensure it doesn't extend page width */
-.nav__drawer {
+/*.nav__drawer {
   position: fixed;
   top: 0; right: 0; bottom: 0;
-  width: 82vw;             /* stays within viewport */
+  width: 82vw;
   max-width: 380px;
   transform: translateX(100%);
 }
-.nav__drawer.is-open { transform: translateX(0); }
+.nav__drawer.is-open { transform: translateX(0); }*/
 
 /* Defensive: maps/photos/portrait frames used in Services/Location */
 .visit__mapframe,
