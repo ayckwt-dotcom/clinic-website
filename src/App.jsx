@@ -2,6 +2,8 @@ import BookingPage2 from "./BookingPage2";
 import { useState, useEffect } from "react";
 import LangToggle from "./LangToggle";
 import { makeT, setLangAttrs } from "./i18n";   // <-- add this
+import { useHead } from "./seo";
+
 
 const getInitialLang = () => {
   // 1) URL override ?lang=ar|en
@@ -22,6 +24,17 @@ export default function App() {
   const [locView, setLocView] = useState("map"); // 'map' | 'photo'
   /*const [lang, setLang] = useState(localStorage.getItem("lang") || "en");*/
   const [lang, setLang] = useState(getInitialLang());
+  // 2) Call the helper immediately after computing isBookingPage
+  useHead({
+    title: !isBookingPage
+      ? "عيادة د. الطيب يوسف للقلب – صباح السالم، الكويت | Dr Altayyeb Yousef Cardiology Clinic"
+      : undefined,
+    description: !isBookingPage
+      ? "عيادة قلب موثوقة بإدارة د. الطيب يوسف في صباح السالم – تشخيص وعلاج أمراض القلب، تخطيط القلب (ECG)، هولتر، موجات صوتية للقلب (Echo)، اختبار الجهد، وقياس ضغط الدم لمدة 24 ساعة. احجز موعدك عبر 91110420 أو عبر الموقع."
+      : undefined,
+    canonical: !isBookingPage ? "https://www.6ayyeboon.com/" : undefined,
+    favVersion: "4" // bump to force a fresh fetch
+  });
 
   useEffect(() => {
     setLangAttrs(lang);               // centralised place to set dir/lang

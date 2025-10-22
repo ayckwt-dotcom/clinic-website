@@ -1,6 +1,8 @@
 // BookingPage2.jsx
 import { useState } from "react";
 import { makeT } from "./i18n";
+import { useHead } from "./seo";
+
 
 // const API_BASE = import.meta?.env?.VITE_API_BASE || "http://localhost:8000";
 const API_BASE = ""; // same-origin: calls your Vercel function at /api/submit-request
@@ -88,6 +90,14 @@ export default function BookingPage2({ lang }) {
 
   const primaryLabel = t("book.actions.submit") || "Submit Request";
   const disableBtn = loading;
+
+  useHead({
+    title: "احجز موعدك أونلاين | 6ayyeboon Clinic",
+    description:
+      "أرسل طلب الحجز عبر الموقع وسنتواصل معك خلال ساعات العمل لتأكيد الموعد. متاح استشارة أونلاين.",
+    canonical: "https://www.6ayyeboon.com/book",
+    favVersion: "4"
+  });
 
   return (
     <main className="section book" aria-labelledby="book-title">
