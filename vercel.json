@@ -1,4 +1,9 @@
 {
+  "redirects": [
+    { "source": "/book-online", "destination": "/book", "permanent": true },
+    { "source": "/book-online/", "destination": "/book", "permanent": true },
+    { "source": "/book-online/(.*)", "destination": "/book", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
