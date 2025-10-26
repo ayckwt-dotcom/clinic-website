@@ -576,6 +576,29 @@ html[dir="rtl"] .nav__drawer.is-open{ transform: translateX(0); }
 
 
 
+.photo-duo__wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.photo-duo__item {
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
+.photo-duo__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 800px) {
+  .photo-duo__wrap { grid-template-columns: 1fr 1fr; }
+}
+
 
 
 
