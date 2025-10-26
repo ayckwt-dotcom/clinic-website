@@ -366,12 +366,31 @@ async function onContactSubmit(e) {
 
           </section>
 
+          {/* >>> Photos between About & Know Your Doctor (with captions) <<< */}
           <section className="section clinic-photos" aria-label="Clinic photos">
             <div className="clinic-photos__wrap">
-              <img src="/Im1.png" alt="Clinic photo" className="clinic-photos__img" />
-              <img src="/Im2.png" alt="Clinic photo" className="clinic-photos__img" />
+              {/* Photo 1 */}
+              <figure className="clinic-photos__item">
+                <figcaption className="clinic-photos__cap">
+                  {lang === "ar"
+                    ? "جائزة المتدرب المتميز في أمراض القلب تورونتو 2010"
+                    : "Outstanding Cardiology Trainee Award, Toronto (2010)"}
+                </figcaption>
+                <img src="/Im1.png" alt="" className="clinic-photos__img" />
+              </figure>
+
+              {/* Photo 2 */}
+              <figure className="clinic-photos__item">
+                <figcaption className="clinic-photos__cap">
+                  {lang === "ar"
+                    ? "جائزة المركز الأول في مسابقة القسطرة جامعة إيموري الأمريكية أتلانتا 2018"
+                    : "First Place – Catheterization Competition, Emory University (Atlanta, 2018)"}
+                </figcaption>
+                <img src="/Im2.png" alt="" className="clinic-photos__img" />
+              </figure>
             </div>
           </section>
+
 
 
 

@@ -591,19 +591,30 @@ html[dir="rtl"] .nav__drawer.is-open{ transform: translateX(0); }
   gap: 16px;
 }
 
-/* images fill width and can't collapse */
-.clinic-photos__img {
-  display: block;
-  border-radius: 16px;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
+.clinic-photos__item { margin: 0; }
+
+.clinic-photos__cap {
+  font-weight: 600;
+  margin: 0 0 8px;
+  line-height: 1.4;
+  /* subtle styling; tweak as you like */
+  color: #14334c;
 }
 
-/* two columns on tablets/desktop */
+.clinic-photos__img {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  height: auto;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+}
+
 @media (min-width: 768px) {
   .clinic-photos__wrap { grid-template-columns: 1fr 1fr; }
 }
+
 
 
 
