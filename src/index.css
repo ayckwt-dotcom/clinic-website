@@ -576,27 +576,33 @@ html[dir="rtl"] .nav__drawer.is-open{ transform: translateX(0); }
 
 
 
-.photo-duo__wrap {
+
+
+/* container always visible */
+.clinic-photos { display: block; }
+
+/* one column on mobile, two on larger screens */
+.clinic-photos__wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr;   /* mobile */
+  gap: 16px;
 }
 
-.photo-duo__item {
-  margin: 0;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,.08);
-}
-
-.photo-duo__item img {
+/* images fill width and can't collapse */
+.clinic-photos__img {
   display: block;
+  border-radius: 16px;
   width: 100%;
   height: auto;
+  max-width: 100%;
 }
 
-@media (min-width: 800px) {
-  .photo-duo__wrap { grid-template-columns: 1fr 1fr; }
+/* two columns on tablets/desktop */
+@media (min-width: 768px) {
+  .clinic-photos__wrap { grid-template-columns: 1fr 1fr; }
 }
 
 
