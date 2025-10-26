@@ -366,6 +366,15 @@ async function onContactSubmit(e) {
 
           </section>
 
+          <section className="section clinic-photos" aria-label="Clinic photos">
+            <div className="clinic-photos__wrap">
+              <img src="/Im1.png" alt="Clinic photo" className="clinic-photos__img" />
+              <img src="/Im2.png" alt="Clinic photo" className="clinic-photos__img" />
+            </div>
+          </section>
+
+
+
           {/* MEDICAL EDUCATION & TRAINING */}
           <section id="education" className="section edu" aria-labelledby="edu-title">
             <div className="section__wrap">
