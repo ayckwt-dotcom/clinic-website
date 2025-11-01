@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import LangToggle from "./LangToggle";
 import { makeT, setLangAttrs } from "./i18n";   // <-- add this
 import { useHead } from "./seo";
+import CardiologistKuwait from "./CardiologistKuwait";
 
 
 const getInitialLang = () => {
@@ -21,20 +22,44 @@ const getInitialLang = () => {
 
 export default function App() {
   const isBookingPage = typeof window !== "undefined" && window.location.pathname === "/book";
+  const path = typeof window !== "undefined" ? window.location.pathname : "/";
+  const isKwCardio = path === "/cardiologist-kuwait";
   const [locView, setLocView] = useState("map"); // 'map' | 'photo'
   /*const [lang, setLang] = useState(localStorage.getItem("lang") || "en");*/
   const [lang, setLang] = useState(getInitialLang());
   // 2) Call the helper immediately after computing isBookingPage
+  // useHead({
+  //   title: !isBookingPage
+  //     ? "عيادة د. الطيب يوسف للقلب – صباح السالم، الكويت | Dr Altayyeb Yousef Cardiology Clinic"
+  //     : undefined,
+  //   description: !isBookingPage
+  //     ? "عيادة قلب موثوقة بإدارة د. الطيب يوسف في صباح السالم – تشخيص وعلاج أمراض القلب، تخطيط القلب (ECG)، هولتر، موجات صوتية للقلب (Echo)، اختبار الجهد، وقياس ضغط الدم لمدة 24 ساعة. احجز موعدك عبر 91110420 أو عبر الموقع."
+  //     : undefined,
+  //   canonical: !isBookingPage ? "https://www.6ayyeboon.com/" : undefined,
+  //   favVersion: "4" // bump to force a fresh fetch
+  // });
+
   useHead({
-    title: !isBookingPage
-      ? "عيادة د. الطيب يوسف للقلب – صباح السالم، الكويت | Dr Altayyeb Yousef Cardiology Clinic"
-      : undefined,
-    description: !isBookingPage
-      ? "عيادة قلب موثوقة بإدارة د. الطيب يوسف في صباح السالم – تشخيص وعلاج أمراض القلب، تخطيط القلب (ECG)، هولتر، موجات صوتية للقلب (Echo)، اختبار الجهد، وقياس ضغط الدم لمدة 24 ساعة. احجز موعدك عبر 91110420 أو عبر الموقع."
-      : undefined,
-    canonical: !isBookingPage ? "https://www.6ayyeboon.com/" : undefined,
-    favVersion: "4" // bump to force a fresh fetch
-  });
+  title: !isBookingPage && !isKwCardio
+    ? (lang === "en"
+        ? "Cardiologist in Kuwait | Interventional Cardiology, Valve Diseases & Echocardiogram – Dr Altayyeb Yousef"
+        : "طبيب قلب في الكويت | قسطرة قلب، أمراض الصمامات، إيكو – د. الطيب يوسف")
+    : undefined,
+  description: !isBookingPage && !isKwCardio
+    ? (lang === "en"
+        ? "Kuwait cardiologist (interventional). Coronary heart disease, valve diseases, echocardiogram (Echo), stress test, Holter, ABPM. Dr Altayyeb Yousef, Kuwaiti consultant cardiologist in Sabah Al-Salem."
+        : "استشاري قلب كويتي. أمراض الشرايين التاجية، أمراض الصمامات، الإيكو، اختبار الجهد، الهولتر وقياس الضغط 24 ساعة. د. الطيب يوسف في صباح السالم.")
+    : undefined,
+  canonical: !isBookingPage && !isKwCardio ? "https://www.6ayyeboon.com/" : undefined,
+  favVersion: "4",
+  alternates: !isBookingPage && !isKwCardio ? [
+    { hreflang: "ar-KW", href: "https://www.6ayyeboon.com/?lang=ar" },
+    { hreflang: "en",    href: "https://www.6ayyeboon.com/?lang=en" },
+    { hreflang: "x-default", href: "https://www.6ayyeboon.com/" }
+  ] : []
+});
+
+
 
   useEffect(() => {
     setLangAttrs(lang);               // centralised place to set dir/lang
@@ -243,9 +268,11 @@ async function onContactSubmit(e) {
       </div>
 
       {isBookingPage ? (
-        <BookingPage2 lang={lang} />
-      ) : (
-        <>
+      <BookingPage2 lang={lang} />
+    ) : isKwCardio ? (
+      <CardiologistKuwait lang={lang} />
+    ) : (
+      <>
 
           <section class="hero full-bleed" role="banner">
             <div class="hero__inner">
@@ -268,6 +295,21 @@ async function onContactSubmit(e) {
               <source src="/Heart_Beat2_v2.webm" type="video/webm" />
               <source src="/Heart_Beat2_v2.mp4"  type="video/mp4" />
             </video>
+          </section>
+
+          {/* SEO-only headings (no UI change) */}
+          <section aria-hidden="false">
+            <h1 className="sr-only">
+              {lang === "en"
+                ? "Cardiologist in Kuwait — Dr Altayyeb Yousef"
+                : "طبيب قلب في الكويت – د. الطيب يوسف"}
+            </h1>
+
+            <h2 className="sr-only">
+              {lang === "en"
+                ? "Interventional cardiology, valve diseases & echocardiogram in Kuwait"
+                : "قسطرة القلب، أمراض الصمامات والإيكو في الكويت"}
+            </h2>
           </section>
 
           <section className="info-row">
