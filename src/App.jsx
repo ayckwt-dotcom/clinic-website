@@ -4,6 +4,7 @@ import LangToggle from "./LangToggle";
 import { makeT, setLangAttrs } from "./i18n";   // <-- add this
 import { useHead } from "./seo";
 import CardiologistKuwait from "./CardiologistKuwait";
+import { convWhatsapp, convSubmitAppt } from "./ads";
 
 
 const getInitialLang = () => {
@@ -134,6 +135,7 @@ async function onContactSubmit(e) {
     });
     const out = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(out.msg || "Failed to send");
+    convSubmitAppt();
 
     alert("✅ Message sent! We’ll get back to you soon.");
     form.reset();
@@ -158,7 +160,24 @@ async function onContactSubmit(e) {
               target="_blank"
               rel="noopener"
               aria-label="WhatsApp"
+              onClick={(e) => {
+              // ensure we navigate after the conversion ping
+              const href = e.currentTarget.href;
+              e.preventDefault();
+              let fired = false;
+              const go = () => { if (!fired) { fired = true; window.open(href, "_blank", "noopener"); } };
+
+              // try to send conversion, then open WA
+              convWhatsapp(go);
+
+              // fallback in case the callback never returns
+              setTimeout(go, 800);
+            }}
             >
+
+
+
+
               {/* WhatsApp badge (small) */}
               <svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true">
                 <defs>

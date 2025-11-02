@@ -34,6 +34,21 @@ export default function BookingPage2({ lang }) {
     return e;
   };
 
+  // --- Google Ads conversion: Submit appointment ---
+  const convSubmitAppt = () => {
+    try {
+      // Protect if gtag isn't ready
+      if (window.gtag) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17694041152/wLO_CJmnibgbEMDIIvVB', // <— your "Submit appointment" send_to
+          value: 1.0,
+          currency: 'USD'
+        });
+      }
+    } catch (_) {}
+  };
+
+
   const handleNameChange = (e) => {
     setName(e.target.value);
     setErrors((p) => ({ ...p, name: undefined }));
@@ -77,6 +92,7 @@ export default function BookingPage2({ lang }) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data?.msg || "Failed to submit");
+      convSubmitAppt();
       alert("📨 Submitted! We’ll contact you during working hours.");
       setName("");
       setMobile("");
