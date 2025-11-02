@@ -213,7 +213,7 @@ async function onContactSubmit(e) {
             <div className="social">
               {/* Instagram */}
               <a className="social__btn" href="https://instagram.com/dr_altayyeb/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="icon--ig" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.8a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"/>
                 </svg>
               </a>
@@ -224,6 +224,20 @@ async function onContactSubmit(e) {
                   <path d="M3 3h3.4l6.1 7.7L16.8 3H21l-7.2 9.2L21 21h-3.4l-6.5-8.2L7.2 21H3l7.6-9.7L3 3z"/>
                 </svg>
               </a>
+              {/* Facebook */}
+              <a
+                className="social__btn"
+                href="https://www.facebook.com/Dr.AltayyebYousef"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg className="icon--fb" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.8-4 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/>
+              </svg>
+              </a>
+
             </div>
           </div>
         </div>
@@ -779,12 +793,29 @@ async function onContactSubmit(e) {
 
           <nav class="footer__nav">
             <div class="footer__social" aria-label="Social links">
-              <a class="social__btn" href="https://instagram.com/dr_altayyeb/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.8a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"/></svg>
+              <a className="social__btn" href="https://instagram.com/dr_altayyeb/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg className="icon--ig" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5zM18 6.8a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"/>
+                </svg>
               </a>
+
               <a class="social__btn" href="https://x.com/6ayyeboon" target="_blank" rel="noopener" aria-label="X">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h3.4l6.1 7.7L16.8 3H21l-7.2 9.2L21 21h-3.4l-6.5-8.2L7.2 21H3l7.6-9.7L3 3z"/></svg>
               </a>
+              {/* Facebook */}
+              <a
+                className="social__btn"
+                href="https://www.facebook.com/Dr.AltayyebYousef"
+                target="_blank"
+                rel="noopener"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg className="icon--fb" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M22 12a10 10 0 1 0-11.5 9.9v-7H7.9V12h2.6V9.8c0-2.6 1.5-4 3.8-4 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/>
+                </svg>
+              </a>
+
             </div>
           </nav>
         </div>
