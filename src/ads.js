@@ -8,11 +8,11 @@ function gtagSafe(...args) {
   }
 }
 
-/** Fire when someone clicks a WhatsApp link */
-export function convWhatsapp(eventCallback) {
+/** Fire when the contact/appointment form is successfully submitted */
+export function convSubmitAppt(eventCallback) {
   gtagSafe("event", "conversion", {
-    send_to: "AW-17694041152/wLO_CJmnibgbEMDIlvVB",  // WhatsApp click
-    value: 1.0,
+    send_to: "AW-17694041152/7C_aCK7CjIgcEMDIlvVB", // New Label
+    value: 0.0,                                   // Value set to 0
     currency: "USD",
     event_callback: eventCallback
   });

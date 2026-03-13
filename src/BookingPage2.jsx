@@ -2,11 +2,9 @@
 import { useState } from "react";
 import { makeT } from "./i18n";
 import { useHead } from "./seo";
+import { convSubmitAppt } from "./ads"; // ⬅️ Imported from your new central hub
 
-
-// const API_BASE = import.meta?.env?.VITE_API_BASE || "http://localhost:8000";
 const API_BASE = ""; // same-origin: calls your Vercel function at /api/submit-request
-
 
 // Convert Arabic-Indic digits → 0–9, then strip non-digits
 const normalizeDigits = (s) => {
@@ -34,21 +32,6 @@ export default function BookingPage2({ lang }) {
     return e;
   };
 
-  // --- Google Ads conversion: Submit appointment ---
-  const convSubmitAppt = () => {
-    try {
-      // Protect if gtag isn't ready
-      if (window.gtag) {
-        window.gtag('event', 'conversion', {
-          send_to: 'AW-17694041152/wLO_CJmnibgbEMDIIvVB', // <— your "Submit appointment" send_to
-          value: 1.0,
-          currency: 'USD'
-        });
-      }
-    } catch (_) {}
-  };
-
-
   const handleNameChange = (e) => {
     setName(e.target.value);
     setErrors((p) => ({ ...p, name: undefined }));
@@ -59,7 +42,6 @@ export default function BookingPage2({ lang }) {
     else setErrors((p) => ({ ...p, name: undefined }));
   };
 
-  // ⬇️ No slicing to 8; keep digits-only normalization
   const handleMobileChange = (e) => {
     const val = normalizeDigits(e.target.value);
     setMobile(val);
@@ -92,7 +74,10 @@ export default function BookingPage2({ lang }) {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data?.msg || "Failed to submit");
-      convSubmitAppt();
+      
+      // ⬅️ Calls the tracking function from ads.js only if submission is successful
+      convSubmitAppt(); 
+      
       alert("📨 Submitted! We’ll contact you during working hours.");
       setName("");
       setMobile("");
